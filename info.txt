@@ -1,0 +1,7 @@
+The equation h(T) = h(T, ξ) suggests that, no matter how you choose to divide or split the system into different parts (represented by the partition ξ), the overall entropy of the system remains constant.
+
+The unpredictability or complexity of the system, as measured by entropy, is a fundamental characteristic that doesn't change based on how you choose to group or categorize the elements within the system.
+Practical example: Imagine you have a bag of marbles, each marble representing a state or behavior of a system. The entropy of the bag is like the overall mix or disorder of marbles. No matter how you decide to group the marbles (using different partitions or ways of organizing them), the overall level of mix or disorder in the bag (entropy) remains the same.
+In the context of dynamical systems, this property is quite powerful because it means that the fundamental unpredictability or complexity of the system is intrinsic and doesn't depend on the specific way you choose to analyze or divide the system.
+
+Applied on stock market: find the right value x for the next day as such the entopy remains the same.

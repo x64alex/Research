@@ -20,4 +20,6 @@ def create_partition(data, num_partitions=500):
 stock_data = pd.read_csv('spx.csv')
 closing_price_partitions = create_partition(stock_data, 5000)
 
+
+
 print("First Partition:", closing_price_partitions[4800])
