@@ -21,6 +21,6 @@ def calculate_partition_entropy(partition):
 sequence = [1, 2, 3, 4, 5]
 sequence2 = [1, 1, 1, 1, 1, 4, 5]
 
-print(f"The entropy of the sequence {sequence} is: {calculate_entropy_hT(sequence)} and partition entropy is: {calculate_partition_entropy(sequence)}")
-print(f"The entropy of the sequence {sequence2} is: {calculate_entropy_hT(sequence2)} and partition entropy is: {calculate_partition_entropy(sequence2)}")
+# print(f"The entropy of the sequence {sequence} is: {calculate_entropy_hT(sequence)} and partition entropy is: {calculate_partition_entropy(sequence)}")
+# print(f"The entropy of the sequence {sequence2} is: {calculate_entropy_hT(sequence2)} and partition entropy is: {calculate_partition_entropy(sequence2)}")
 

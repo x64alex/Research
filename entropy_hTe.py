@@ -16,7 +16,7 @@ def calculate_limit_entropy(sequence, partition):
 
         sum_entropy += intersection_prob * math.log(intersection_prob)
 
-    return -sum_entropy / n
+    return sum_entropy / n
 
 # Example usage
 sequence = [1, 2, 3, 4, 5]
