@@ -1,5 +1,6 @@
 import pandas as pd
 import entropy_hT
+import entropy_hTe
 
 # Create a partition based on consecutive dates
 def create_finite_partition(data, num_partitions):
@@ -18,20 +19,33 @@ def create_finite_partition(data, num_partitions):
 
     return consecutive_partitions
 
+def predict_next_day(stock_data):
+    data_partitions_6 = create_finite_partition(data2023, 6)
+    data_partitions_5 = create_finite_partition(data2023, 5)
+    data_partitions_4 = create_finite_partition(data2023, 4)
+    data_partitions_3 = create_finite_partition(data2023, 3)
+    data_partitions_2 = create_finite_partition(data2023, 2)
+
+    entropy_data = entropy_hT.calculate_entropy_hT(stock_data)
+    entropy_partition_6 = entropy_hTe.calculate_limit_entropy(stock_data, data_partitions_6)
+    entropy_partition_5 = entropy_hTe.calculate_limit_entropy(stock_data, data_partitions_5)
+    entropy_partition_4 = entropy_hTe.calculate_limit_entropy(stock_data, data_partitions_4)
+    entropy_partition_3 = entropy_hTe.calculate_limit_entropy(stock_data, data_partitions_3)
+    entropy_partition_2 = entropy_hTe.calculate_limit_entropy(stock_data, data_partitions_2)
+
+    entropy_partition_mean = (entropy_partition_6+entropy_partition_5+entropy_partition_4+entropy_partition_3+entropy_partition_2)/5
+
+
+    return entropy_partition_mean < entropy_data**2
+
+
+
 
 stock_data = pd.read_csv('spx.csv')
 sorted_data = stock_data.sort_values(by='Date')
 finite_partition = sorted_data['Close'].tolist()
 
-closing_price_partitions = create_finite_partition(sorted_data, 20)
-closing_price_partitions2 = create_finite_partition(finite_partition, 1500)
+closing_price_partitions = create_finite_partition(finite_partition, 1500)
+data2023 = closing_price_partitions[1498]
 
-
-# print(finite_partition)
-
-# first_partition_close_df = pd.DataFrame({'Close': finite_partition[0]})
-# print(type(first_partition_close_df))
-# print(closing_price_partitions[0], closing_price_partitions2[0])
-# print(len(closing_price_partitions[0]), len(closing_price_partitions2[0]))
-print(closing_price_partitions2[18],len(closing_price_partitions2[18]))
-print(entropy_hT.calculate_entropy_hT(closing_price_partitions2[18]))
+print(predict_next_day(data2023))
