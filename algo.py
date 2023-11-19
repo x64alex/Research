@@ -20,11 +20,11 @@ def create_finite_partition(data, num_partitions):
     return consecutive_partitions
 
 def predict_next_day(stock_data):
-    data_partitions_6 = create_finite_partition(data2023, 6)
-    data_partitions_5 = create_finite_partition(data2023, 5)
-    data_partitions_4 = create_finite_partition(data2023, 4)
-    data_partitions_3 = create_finite_partition(data2023, 3)
-    data_partitions_2 = create_finite_partition(data2023, 2)
+    data_partitions_6 = create_finite_partition(stock_data, 6)
+    data_partitions_5 = create_finite_partition(stock_data, 5)
+    data_partitions_4 = create_finite_partition(stock_data, 4)
+    data_partitions_3 = create_finite_partition(stock_data, 3)
+    data_partitions_2 = create_finite_partition(stock_data, 2)
 
     entropy_data = entropy_hT.calculate_entropy_hT(stock_data)
     entropy_partition_6 = entropy_hTe.calculate_limit_entropy(stock_data, data_partitions_6)
@@ -35,8 +35,29 @@ def predict_next_day(stock_data):
 
     entropy_partition_mean = (entropy_partition_6+entropy_partition_5+entropy_partition_4+entropy_partition_3+entropy_partition_2)/5
 
-
+    # price higher next day
     return entropy_partition_mean < entropy_data**2
+
+
+def calculate_accuracy(stock_data, partition_number):
+    correct = 0
+    incorrect = 0
+    closing_price_partitions = create_finite_partition(finite_partition, partition_number)
+
+    for index in range(partition_number-1):
+        data = closing_price_partitions[index]
+        prediction = predict_next_day(data)
+
+        if (data[-1] < closing_price_partitions[index+1][0]) == prediction:
+            correct +=1
+        else:
+            incorrect += 1
+
+        print(prediction, data[-1], closing_price_partitions[index+1][0], correct, incorrect)
+
+    accuracy = correct/(correct+incorrect)
+
+    print(f"Accuracy: {accuracy}%")
 
 
 
@@ -44,8 +65,8 @@ def predict_next_day(stock_data):
 stock_data = pd.read_csv('spx.csv')
 sorted_data = stock_data.sort_values(by='Date')
 finite_partition = sorted_data['Close'].tolist()
-
-closing_price_partitions = create_finite_partition(finite_partition, 1500)
-data2023 = closing_price_partitions[1498]
-
-print(predict_next_day(data2023))
+# Accuracy is 780/1499= 52%
+calculate_accuracy(finite_partition, 1500)
+# closing_price_partitions = create_finite_partition(finite_partition, 1500)
+# data2023 = closing_price_partitions[1498]
+# print(predict_next_day(data2023))
